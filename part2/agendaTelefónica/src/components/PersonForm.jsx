@@ -1,6 +1,6 @@
 import personsService from "../services/persons"
 
-const PersonForm = ({setNewName, setNewNumber, newName, newNumber, persons, setPersons} ) => {
+const PersonForm = ({setNewName, setNewNumber, newName, newNumber, persons, setPersons, setAddedPerson, setError} ) => {
     
   const handleNameChange = (event) => {
     console.log(event.target.value)
@@ -32,6 +32,7 @@ const PersonForm = ({setNewName, setNewNumber, newName, newNumber, persons, setP
       .create(personObject)
       .then(returnedPerson => {
         setPersons(persons.concat(returnedPerson));
+        showNotification(newName);
         setNewName('');
         setNewNumber('');
       }
@@ -48,6 +49,22 @@ const PersonForm = ({setNewName, setNewNumber, newName, newNumber, persons, setP
         setNewName('');
         setNewNumber('');
       })
+      .catch((error)=>{
+        setError(`information of ${person.name} has already been removed from server`)
+        setTimeout(()=>{
+          setError(null)
+        },5000)
+        setPersons(persons.filter(p => p.id !== id))
+        setNewName('');
+        setNewNumber('');
+      })
+  }
+
+  const showNotification = (name) =>{
+    setAddedPerson(name);
+    setTimeout(()=>{
+      setAddedPerson(null)
+    }, 4000)
   }
 
     
