@@ -1,6 +1,6 @@
 const Country = ({country}) =>{
-    console.log(country);
-    console.log(country.languages);
+//    console.log(country);
+//    console.log(country.languages);
     
     
     return(

@@ -16,10 +16,11 @@ const App = ()=>{
       })
   },[])
 
+
   const countriesToShow = countries.filter(c => 
     c.name.common.toLowerCase().includes(filter.toLowerCase())
   )
-  
+
   return(
     <>
       <h1>Countries</h1>
@@ -28,7 +29,7 @@ const App = ()=>{
       </div>
       {countriesToShow.length <= 10 ?
         <div>
-          <Countries countries={countriesToShow} />
+          <Countries countries={countriesToShow}/>
         </div> :
         <p>To many matches, specify another filter</p>
     }

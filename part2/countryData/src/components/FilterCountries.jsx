@@ -2,7 +2,7 @@ const FilterCountries = ({filter, setFilter}) =>{
     
     const handleFindCountry = (event)=>{
         console.log(event.target.value);
-        setFilter(event.target.value)
+        setFilter(event.target.value);
     }
     
     return (

@@ -1,15 +1,33 @@
+import { useEffect, useState } from "react";
 import Country from "./Country";
+import countriesServices from "../services/countries";
 
 const Countries = ({countries})=>{
+
+    const [countriesToShow, setCountriesToShow] = useState(countries);
+
+    useEffect(()=>{
+        setCountriesToShow(countries);
+    },[countries])
+
+    const handleShowCountry = (name) =>{
+        countriesServices
+            .getbyName(name)
+            .then(c => {
+                console.log(c);
+                setCountriesToShow([c]);
+            })
+    }
+
     return(
         <div>
-            { countries.length !== 1 ?
+            { countriesToShow.length !== 1 ?
             <ul>
-                {countries.map(c=>
-                    <li key={c.name.common}>{c.name.official}</li>
+                {countriesToShow.map(c=>
+                    <li key={c.name.common}>{c.name.official} <button onClick={()=>handleShowCountry(c.name.common)}>Show</button></li>
                 )}
             </ul> :
-            <Country country={countries[0]} />
+            <Country country={countriesToShow[0]} />
             }
         </div>
     )
