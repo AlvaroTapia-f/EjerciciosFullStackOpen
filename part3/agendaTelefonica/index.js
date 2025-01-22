@@ -3,6 +3,10 @@ const app = express();
 
 app.use(express.json());
 
+const morgan = require('morgan')
+
+morgan.token('data', (req, res)=> JSON.stringify(req.body))
+
 let agenda = [
     { 
       "id": 1,
@@ -26,9 +30,23 @@ let agenda = [
     }
 ]
 
+//app.use(morgan('tiny'))
+app.use(morgan((tokens, req, res) => {
+    return [
+        tokens.method(req, res),
+        tokens.url(req, res),
+        tokens.status(req, res),
+        tokens.res(req, res, 'content-length'), '-',
+        tokens['response-time'](req, res), 'ms',
+        tokens.data(req, res)
+    ].join(' ')
+}
+))
+
 app.get('/api/persons', (request, response) =>{
     response.json(agenda);
 })
+
 
 app.get('/info', (request, response) =>{
     const date = new Date();
