@@ -5,3 +5,12 @@ Content-Type: application/json
    "name": "Alvaro",
    "number": "27172213"
 }
+
+###
+POST https://ejerciciosfullstackopen.onrender.com/api/persons
+Content-Type: application/json
+
+{
+   "name": "Alvaro",
+   "number": "27172213"
+}
